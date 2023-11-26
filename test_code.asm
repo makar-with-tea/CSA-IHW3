@@ -1,7 +1,7 @@
 .include "macro-syscalls.m"
 
-.eqv    NAME_SIZE 256	# Размер буфера для имени файла
-.eqv    TEXT_SIZE 512	# Размер буфера для текста
+.eqv    NAME_SIZE 256	# Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ РёРјРµРЅРё С„Р°Р№Р»Р°
+.eqv    TEXT_SIZE 512	# Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ С‚РµРєСЃС‚Р°
 
 
 .data
@@ -12,18 +12,18 @@ a:    .asciz "data/a.txt"
 _b: .asciz "data/b.txt"
 c: .asciz "data/c.txt"
 d: .asciz "data/d.txt"
-file_name:      .space	NAME_SIZE		# Имя читаемого файла
-strbuf:	.space TEXT_SIZE			# Буфер для читаемого текста
+file_name:      .space	NAME_SIZE		# РРјСЏ С‡РёС‚Р°РµРјРѕРіРѕ С„Р°Р№Р»Р°
+strbuf:	.space TEXT_SIZE			# Р‘СѓС„РµСЂ РґР»СЏ С‡РёС‚Р°РµРјРѕРіРѕ С‚РµРєСЃС‚Р°
 
 
-# на момент начала исполнения программы в каталоге хранятся файлы a.txt, b.txt, c.txt
+# РЅР° РјРѕРјРµРЅС‚ РЅР°С‡Р°Р»Р° РёСЃРїРѕР»РЅРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹ РІ РєР°С‚Р°Р»РѕРіРµ С…СЂР°РЅСЏС‚СЃСЏ С„Р°Р№Р»С‹ a.txt, b.txt, c.txt
 .text
 la a0 a
-li a1 10 # длина текста в файле a.txt
+li a1 10 # РґР»РёРЅР° С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»Рµ a.txt
 jal load_file
 mv s1 a0
 print_str("File a.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 li a1 1 # n1 = 1
@@ -38,7 +38,7 @@ la a2 d
 jal write_string_to_file
 
 la a0 d
-li a1 10 # длина текста в файле a.txt
+li a1 10 # РґР»РёРЅР° С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»Рµ a.txt
 jal load_file
 mv s1 a0
 print_str("\nFile d.txt: ")
@@ -46,11 +46,11 @@ li a7 4
 ecall
 
 la a0 _b
-li a1 26 # длина текста в файле b.txt
+li a1 26 # РґР»РёРЅР° С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»Рµ b.txt
 jal load_file
 mv s1 a0
 print_str("\nFile b.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 li a1 1 # n1 = 1
@@ -62,11 +62,11 @@ li a7 4
 ecall
 
 la a0 c
-li a1 25 # длина текста в файле c.txt
+li a1 25 # РґР»РёРЅР° С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»Рµ c.txt
 jal load_file
 mv s1 a0
 print_str("\nFile c.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 li a1 4 # n1 = 4
@@ -81,11 +81,11 @@ la a2 c
 jal write_string_to_file
 
 la a0 c
-li a1 25 # длина текста в файле c.txt
+li a1 25 # РґР»РёРЅР° С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»Рµ c.txt
 jal load_file
 mv s1 a0
 print_str("\nFile c.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 
