@@ -1,7 +1,7 @@
 .include "macro-syscalls.m"
 
-.eqv    NAME_SIZE 256	# Размер буфера для имени файла
-.eqv    TEXT_SIZE 512	# Размер буфера для текста
+.eqv    NAME_SIZE 256	# Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ РёРјРµРЅРё С„Р°Р№Р»Р°
+.eqv    TEXT_SIZE 512	# Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ С‚РµРєСЃС‚Р°
 
 
 .data
@@ -12,16 +12,16 @@ a:    .asciz "data/a.txt"
 _b: .asciz "data/b.txt"
 c: .asciz "data/c.txt"
 d: .asciz "data/d.txt"
-file_name:      .space	NAME_SIZE		# Имя читаемого файла
-strbuf:	.space TEXT_SIZE			# Буфер для читаемого текста
+file_name:      .space	NAME_SIZE		# РРјСЏ С‡РёС‚Р°РµРјРѕРіРѕ С„Р°Р№Р»Р°
+strbuf:	.space TEXT_SIZE			# Р‘СѓС„РµСЂ РґР»СЏ С‡РёС‚Р°РµРјРѕРіРѕ С‚РµРєСЃС‚Р°
 
 
-# на момент начала исполнения программы в каталоге хранятся файлы a.txt, b.txt, c.txt
+# РЅР° РјРѕРјРµРЅС‚ РЅР°С‡Р°Р»Р° РёСЃРїРѕР»РЅРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹ РІ РєР°С‚Р°Р»РѕРіРµ С…СЂР°РЅСЏС‚СЃСЏ С„Р°Р№Р»С‹ a.txt, b.txt, c.txt
 .text
 load_file_macro(a, 10)
 mv s1 a0
 print_str("File a.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 li t1 1 # n1 = 1
@@ -45,7 +45,7 @@ ecall
 load_file_macro(_b, 26)
 mv s1 a0
 print_str("\nFile b.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 mv t0 a0
@@ -60,7 +60,7 @@ ecall
 load_file_macro(c, 25)
 mv s1 a0
 print_str("\nFile c.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 li t1 4
@@ -75,7 +75,7 @@ write_string_to_file_macro(s1, t1, c)
 load_file_macro(c, 25)
 mv s1 a0
 print_str("\nFile c.txt: ")
-# текущая строка - в регистре a0
+# С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° - РІ СЂРµРіРёСЃС‚СЂРµ a0
 li a7 4
 ecall
 
