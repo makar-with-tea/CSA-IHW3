@@ -1,0 +1,11 @@
+Show results in the console? Y/N 
+Input path to file for reading:
+Original string: I AM GROOT
+Input first index (n1). It should satisfy the inequality: 0 <= n1 < length of file info 
+Incorrect number! Try again!
+Input first index (n1). It should satisfy the inequality: 0 <= n1 < length of file info 
+Input second index (n2). It should satisfy the inequality: n1 <= n2 < length of file info 
+Incorrect number! Try again!
+Input second index (n2). It should satisfy the inequality: n1 <= n2 < length of file info 
+Input path to file for writing:
+Final string: I ORG MAOT
