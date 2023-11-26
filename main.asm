@@ -1,18 +1,18 @@
 .include "macro-syscalls.m"
 
-# Чтение текста из файла, задаваемого в диалоге, в буфер фиксированного размера
-.eqv    NAME_SIZE 256	# Размер буфера для имени файла
-.eqv    TEXT_SIZE 512	# Размер буфера для текста
+# Р§С‚РµРЅРёРµ С‚РµРєСЃС‚Р° РёР· С„Р°Р№Р»Р°, Р·Р°РґР°РІР°РµРјРѕРіРѕ РІ РґРёР°Р»РѕРіРµ, РІ Р±СѓС„РµСЂ С„РёРєСЃРёСЂРѕРІР°РЅРЅРѕРіРѕ СЂР°Р·РјРµСЂР°
+.eqv    NAME_SIZE 256	# Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ РёРјРµРЅРё С„Р°Р№Р»Р°
+.eqv    TEXT_SIZE 512	# Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ С‚РµРєСЃС‚Р°
 
 .data
-prompt:         .asciz "Input file path: "     # Путь до читаемого файла
+prompt:         .asciz "Input file path: "     # РџСѓС‚СЊ РґРѕ С‡РёС‚Р°РµРјРѕРіРѕ С„Р°Р№Р»Р°
 er_name_mes:    .asciz "Incorrect file name\n"
 er_read_mes:    .asciz "Incorrect read operation\n"
 empty: .asciz ""
 yes: .asciz "Y"
 answer: .space 2
-file_name:      .space	NAME_SIZE		# Имя читаемого файла
-strbuf:	.space TEXT_SIZE			# Буфер для читаемого текста
+file_name:      .space	NAME_SIZE		# РРјСЏ С‡РёС‚Р°РµРјРѕРіРѕ С„Р°Р№Р»Р°
+strbuf:	.space TEXT_SIZE			# Р‘СѓС„РµСЂ РґР»СЏ С‡РёС‚Р°РµРјРѕРіРѕ С‚РµРєСЃС‚Р°
 
 
 .text
@@ -22,17 +22,17 @@ str_get(answer, 2)
 la a0 yes
 la a1 answer
 jal compare_char
-mv s1 a0 # булевое значение: надо ли выводить результат в консоль
+mv s1 a0 # Р±СѓР»РµРІРѕРµ Р·РЅР°С‡РµРЅРёРµ: РЅР°РґРѕ Р»Рё РІС‹РІРѕРґРёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ РІ РєРѕРЅСЃРѕР»СЊ
 newline
 
 
-print_str ("Input path to file for reading: ") # Вывод подсказки
-# Ввод имени файла с консоли эмулятора
+print_str ("Input path to file for reading: ") # Р’С‹РІРѕРґ РїРѕРґСЃРєР°Р·РєРё
+# Р’РІРѕРґ РёРјРµРЅРё С„Р°Р№Р»Р° СЃ РєРѕРЅСЃРѕР»Рё СЌРјСѓР»СЏС‚РѕСЂР°
 str_get(file_name, NAME_SIZE)
 load_file_macro(file_name, TEXT_SIZE)
 mv s3 a0
 mv s6 a1  
-beqz s1 input_n1 # при флаге 0 пропускаем вывод строки на экран
+beqz s1 input_n1 # РїСЂРё С„Р»Р°РіРµ 0 РїСЂРѕРїСѓСЃРєР°РµРј РІС‹РІРѕРґ СЃС‚СЂРѕРєРё РЅР° СЌРєСЂР°РЅ
 
 print_str("Original string: ")
 mv a0 s3
@@ -40,6 +40,7 @@ li a7 4
 ecall
 newline
 
+# РџРѕР»СѓС‡Р°РµРј РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёРЅРґРµРєСЃС‹ РЅР°С‡Р°Р»Р° Рё РєРѕРЅС†Р° РїРѕРІРѕСЂР°С‡РёРІРѕРµРјРѕР№ СЃС‚СЂРѕРєРё
 input_n1:
 print_str("Input first index (n1). It should satisfy the inequality: 0 <= n1 < length of file info \n")
 read_int(s1)
@@ -52,32 +53,35 @@ bltz s2 incorrect_n2
 blt s2 s1 incorrect_n2
 b end_input_n
 
+# n1 РЅРµ СѓРґРѕРІР»РµС‚РІРѕСЂСЏРµС‚ РѕРіСЂР°РЅРёС‡РµРЅРёСЏРј
 incorrect_n1:
 print_str("Incorrect number! Try again!\n")
 b input_n1
 
+# n2 РЅРµ СѓРґРѕРІР»РµС‚РІРѕСЂСЏРµС‚ РѕРіСЂР°РЅРёС‡РµРЅРёСЏРј
 incorrect_n2:
 print_str("Incorrect number! Try again!\n")
 b input_n2
 
 end_input_n:
+# РїРѕСЃР»Рµ РІРІРѕРґР° РёРЅРґРµРєСЃРѕРІ РїСЂРёРјРµРЅСЏРµРј РїРѕРґРїСЂРѕРіСЂР°РјРјСѓ РїРµСЂРµРІРѕСЂРѕС‚Р° РїРѕРґСЃС‚СЂРѕРєРё
 reverse_part_macro(s3, s1, s2)
 mv s3 a0
 
 
-# Сохранение прочитанного файла в другом файле
+# РЎРѕС…СЂР°РЅРµРЅРёРµ РїСЂРѕС‡РёС‚Р°РЅРЅРѕРіРѕ С„Р°Р№Р»Р° РІ РґСЂСѓРіРѕРј С„Р°Р№Р»Рµ
 print_str ("Input path to file for writing: ")
-str_get(file_name, NAME_SIZE) # Ввод имени файла с консоли эмулятора
+str_get(file_name, NAME_SIZE) # Р’РІРѕРґ РёРјРµРЅРё С„Р°Р№Р»Р° СЃ РєРѕРЅСЃРѕР»Рё СЌРјСѓР»СЏС‚РѕСЂР°
 write_string_to_file_macro(s3, s6, file_name)  
 
-beqz s1 final # при флаге 0 пропускаем вывод строки на экран
+beqz s1 final # РїСЂРё С„Р»Р°РіРµ 0 РїСЂРѕРїСѓСЃРєР°РµРј РІС‹РІРѕРґ СЃС‚СЂРѕРєРё РЅР° СЌРєСЂР°РЅ
 print_str("Final string: ")
 mv a0 s3
 li a7 4
 ecall
 
 final:
-# Завершение программы
+# Р—Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹
 exit
    
 .include "reverse_part.s"
